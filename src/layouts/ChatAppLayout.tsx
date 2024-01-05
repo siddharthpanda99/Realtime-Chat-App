@@ -1,7 +1,8 @@
 import React from "react";
 import Box from "@mui/material/Box";
 import MultipleColsWithCustomWidths from "./subLayouts/MultipleColsWithCustomWidths";
-import Sidebar from "../components/Sidebar";
+import VerticalCollapsibleSidebarOnHover from "../components/Navigation/VerticalNav/MuiDefaultNavbars";
+import HorizontalAppBar from "../components/Navigation/HorizontalNav/HorizontalHeader";
 
 const ChatAppLayout = () => {
   return (
@@ -11,21 +12,19 @@ const ChatAppLayout = () => {
           width: "100%",
           border: "1px solid yellow",
           boxSizing: "border-box",
-          height: "10vh",
-          lineHeight: "10vh",
         }}
       >
-        <Box sx={{ alignContent: "center" }}>Hi</Box>
+        <Box><HorizontalAppBar /></Box>
       </Box>
       <MultipleColsWithCustomWidths>
         <Box
           sx={{
-            width: "15%",
+            maxWidth: "15%",
             border: "1px solid yellow",
             boxSizing: "border-box",
           }}
         >
-          <Sidebar />
+          <VerticalCollapsibleSidebarOnHover />
         </Box>
         <Box
           sx={{
