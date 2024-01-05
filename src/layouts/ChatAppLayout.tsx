@@ -17,7 +17,7 @@ const ChatAppLayout = () => {
       >
         <HorizontalAppBar />
       </Box>
-      <MultipleColsWithCustomWidths>
+      {false ? (<MultipleColsWithCustomWidths>
         <Box
           sx={{
             maxWidth: "15%",
@@ -36,7 +36,7 @@ const ChatAppLayout = () => {
         >
           <PublicRouter />
         </Box>
-      </MultipleColsWithCustomWidths>
+      </MultipleColsWithCustomWidths>): <PublicRouter />}
     </>
   );
 };
