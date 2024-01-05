@@ -14,36 +14,50 @@ import { useState } from "react";
 
 const Login = () => {
   const { user, updateUser } = useUserContext();
-  const [error, setError] = useState(false)
+  const [error, setError] = useState(false);
   const [errorMsg, setErrorMsg] = useState("");
 
   const navigate = useNavigate();
 
-  
   const handleSubmit = (event: any) => {
     event.preventDefault();
-    if(user.email && user.password){
-      console.log("🚀 ~ file: Login.tsx:26 ~ handleSubmit ~ user:", user)
-    const userFromLocalStorage = JSON.parse(
-      localStorage.getItem("user") || "{}"
-    );
-    console.log("🚀 ~ file: Login.tsx:30 ~ handleSubmit ~ userFromLocalStorage:", userFromLocalStorage)
-    const {
-      email, password
-    } = userFromLocalStorage
-    if(!email && !password) {
-      setError(true)
-      setErrorMsg("User is not registered");
-    }
-    if(email === user.email && password === user.password){
-      updateUser("loggedIn", true);
-      navigate("/home");
-    } else if(email === user.email && password === user.password) {
-      console.log("EORROOR")
-      setErrorMsg("Email or password is wrong")
-    }
-    } else console.log("Please enter values before submitting form")
-    
+    // If email and password fields are filled, then move in else throw error
+    if (user.email && user.password) {
+      console.log("🚀 ~ file: Login.tsx:26 ~ handleSubmit ~ user:", user);
+      // Load users array from localstorage
+      const userArray = JSON.parse(localStorage.getItem("users") || "[]");
+      console.log(
+        "🚀 ~ file: Login.tsx:30 ~ handleSubmit ~ userArray:",
+        userArray
+      );
+      // find the appropriate user, if found return else throw error that user not registered
+      if (
+        userArray &&
+        userArray.filter((usr) => usr.email === user.email).length > 0
+        ) {
+        console.log("🚀 ~ file: Login.tsx:36 ~ handleSubmit ~ userArray:", userArray)
+        // We found our user, so find its index
+        const userIndex = userArray.findIndex(
+          (usr) => usr.email === user.email
+        );
+        // Check if password correct
+        if (userArray[userIndex].password !== user.password) {
+          // check password, if not throw error
+          setErrorMsg("Password is wrong");
+        } else {
+          // Set loggedIn propetry to true for the specific user
+          userArray[userIndex].loggedIn = true;
+          // Save modified user array to localstorage
+          localStorage.setItem("users", JSON.stringify(userArray));
+          updateUser("loggedIn", true);
+          navigate("/home");
+        }
+      } else {
+        setError(true)
+        setErrorMsg("User is not registered");
+        console.log("User is not registered");
+      }
+    } else console.log("Please enter values before submitting form");
   };
 
   return (
@@ -114,11 +128,11 @@ const Login = () => {
       </Box>
       <Snackbar open={error} autoHideDuration={1000}>
         <Alert severity="error" sx={{ width: "100%" }}>
-          User is not registered
+          {errorMsg}
         </Alert>
       </Snackbar>
     </Container>
   );
-}
+};
 
 export default Login;
