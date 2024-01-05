@@ -3,6 +3,7 @@ import Box from "@mui/material/Box";
 import MultipleColsWithCustomWidths from "./subLayouts/MultipleColsWithCustomWidths";
 import VerticalCollapsibleSidebarOnHover from "../components/Navigation/VerticalNav/MuiDefaultNavbars";
 import HorizontalAppBar from "../components/Navigation/HorizontalNav/HorizontalHeader";
+import PublicRouter from "../routes/PublicRoutes";
 
 const ChatAppLayout = () => {
   return (
@@ -10,11 +11,11 @@ const ChatAppLayout = () => {
       <Box
         sx={{
           width: "100%",
-          border: "1px solid yellow",
+          // border: "1px solid yellow",
           boxSizing: "border-box",
         }}
       >
-        <Box><HorizontalAppBar /></Box>
+        <HorizontalAppBar />
       </Box>
       <MultipleColsWithCustomWidths>
         <Box
@@ -28,34 +29,14 @@ const ChatAppLayout = () => {
         </Box>
         <Box
           sx={{
-            width: "50%",
+            width: "100%",
             border: "1px solid green",
             boxSizing: "border-box",
           }}
         >
-          Hi-col-2
-        </Box>
-        <Box
-          sx={{
-            width: "50%",
-            border: "1px solid green",
-            boxSizing: "border-box",
-          }}
-        >
-          Hi-col-3
+          <PublicRouter />
         </Box>
       </MultipleColsWithCustomWidths>
-      <Box
-        sx={{
-          width: "100%",
-          border: "1px solid yellow",
-          boxSizing: "border-box",
-          height: "9vh",
-          lineHeight: "9vh",
-        }}
-      >
-        Hi
-      </Box>
     </>
   );
 };

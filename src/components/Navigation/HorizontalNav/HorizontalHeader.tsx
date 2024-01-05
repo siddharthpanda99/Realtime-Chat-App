@@ -51,7 +51,7 @@ const Userbox = styled(Box)(({ theme }) => ({
 const HorizontalAppBar = () => {
   const [open, setOpen] = useState(false);
   // const { user, updateUser } = useUserContext();
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   // const handleChange = () => {
   //   updateUser("loggedIn", false);
