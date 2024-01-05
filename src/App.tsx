@@ -1,13 +1,21 @@
-import './App.css'
+import { ThemeProvider, createTheme } from "@mui/material/styles";
+import CssBaseline from "@mui/material/CssBaseline";
+import "./App.css";
 import ChatAppLayout from './layouts/ChatAppLayout';
 
-function App() {
+const darkTheme = createTheme({
+  palette: {
+    mode: "dark",
+  },
+});
 
+export default function App() {
   return (
-    <>
-      <ChatAppLayout />
-    </>
-  )
+    <ThemeProvider theme={darkTheme}>
+      <CssBaseline />
+      <>
+         <ChatAppLayout />
+      </>
+    </ThemeProvider>
+  );
 }
-
-export default App

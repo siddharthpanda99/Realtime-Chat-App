@@ -1,6 +1,7 @@
 import React from "react";
 import Box from "@mui/material/Box";
 import MultipleColsWithCustomWidths from "./subLayouts/MultipleColsWithCustomWidths";
+import Sidebar from "../components/Sidebar";
 
 const ChatAppLayout = () => {
   return (
@@ -24,7 +25,7 @@ const ChatAppLayout = () => {
             boxSizing: "border-box",
           }}
         >
-          Hi-col-1
+          <Sidebar />
         </Box>
         <Box
           sx={{
