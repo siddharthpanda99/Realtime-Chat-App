@@ -15,8 +15,9 @@ import React, { useState } from "react";
 import { Mail, Notifications } from "@mui/icons-material";
 import { deepOrange } from "@mui/material/colors";
 // import { SwitchModeButton } from "../../SwitchModeButton";
-// import { useUserContext } from "../../../hooks/useUserContext";
+import { useUserContext } from "../../../hooks/useUserContext";
 import { useNavigate } from "react-router-dom";
+import TopButtonLoggedOff from "./TopButtonLoggedOff";
 
 const StyledToolBar = styled(Toolbar)({
   display: "flex",
@@ -50,14 +51,16 @@ const Userbox = styled(Box)(({ theme }) => ({
 
 const HorizontalAppBar = () => {
   const [open, setOpen] = useState(false);
-  // const { user, updateUser } = useUserContext();
-  // const navigate = useNavigate();
+  const { user, updateUser } = useUserContext();
+  console.log("🚀 ~ file: HorizontalHeader.tsx:54 ~ HorizontalAppBar ~ user:", user)
+  const navigate = useNavigate();
 
-  // const handleChange = () => {
-  //   updateUser("loggedIn", false);
-  //   console.log("USER", user);
-  //   navigate("login");
-  // };
+  const handleChange = () => {
+    updateUser("loggedIn", false);
+    console.log("USER", user);
+    setOpen(false);
+    navigate("login");
+  };
 
   return (
     <AppBar sx={{ position: "sticky" }}>
@@ -69,33 +72,37 @@ const HorizontalAppBar = () => {
         <Search>
           <InputBase placeholder="Search...." />
         </Search>
-        <Icons>
-          <Badge badgeContent={4} color="error">
-            <Mail />
-          </Badge>
-          <Badge badgeContent={4} color="error">
-            <Notifications />
-          </Badge>
-          <Avatar
-            sx={{ bgcolor: deepOrange[500], width: 30, height: 30 }}
-            onClick={(e) => {
-              setOpen(true);
-            }}
-          >
-            N
-          </Avatar>
-          {/* <SwitchModeButton /> */}
-        </Icons>
-        <Userbox>
-          <Avatar
-            sx={{ bgcolor: deepOrange[500], width: 30, height: 30 }}
-            onClick={(e) => {
-              setOpen(true);
-            }}
-          >
-            N
-          </Avatar>
-        </Userbox>
+        {user.loggedIn ? (
+          <>
+            <Icons>
+              <Badge badgeContent={4} color="error">
+                <Mail />
+              </Badge>
+              <Badge badgeContent={4} color="error">
+                <Notifications />
+              </Badge>
+              <Avatar
+                sx={{ bgcolor: deepOrange[500], width: 30, height: 30 }}
+                onClick={(e) => {
+                  setOpen(true);
+                }}
+              >
+                N
+              </Avatar>
+              {/* <SwitchModeButton /> */}
+            </Icons>
+            <Userbox>
+              <Avatar
+                sx={{ bgcolor: deepOrange[500], width: 30, height: 30 }}
+                onClick={(e) => {
+                  setOpen(true);
+                }}
+              >
+                N
+              </Avatar>
+            </Userbox>
+          </>
+        ) : <TopButtonLoggedOff />}
       </StyledToolBar>
       <Menu
         id="demo-positioned-menu"
@@ -115,9 +122,7 @@ const HorizontalAppBar = () => {
       >
         <MenuItem>Profile</MenuItem>
         <MenuItem>My account</MenuItem>
-        <MenuItem 
-        // onClick={handleChange}
-        >Logout</MenuItem>
+        <MenuItem onClick={handleChange}>Logout</MenuItem>
       </Menu>
     </AppBar>
   );

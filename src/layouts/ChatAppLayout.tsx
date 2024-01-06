@@ -4,8 +4,11 @@ import MultipleColsWithCustomWidths from "./subLayouts/MultipleColsWithCustomWid
 import VerticalCollapsibleSidebarOnHover from "../components/Navigation/VerticalNav/MuiDefaultNavbars";
 import HorizontalAppBar from "../components/Navigation/HorizontalNav/HorizontalHeader";
 import PublicRouter from "../routes/PublicRoutes";
+import PrivateRouter from "../routes/PrivateRoutes";
+import { useUserContext } from "../hooks/useUserContext";
 
 const ChatAppLayout = () => {
+  const {user} = useUserContext();
   return (
     <>
       <Box
@@ -17,7 +20,7 @@ const ChatAppLayout = () => {
       >
         <HorizontalAppBar />
       </Box>
-      {false ? (<MultipleColsWithCustomWidths>
+      {user.loggedIn ? (<MultipleColsWithCustomWidths>
         <Box
           sx={{
             maxWidth: "15%",
@@ -34,7 +37,7 @@ const ChatAppLayout = () => {
             boxSizing: "border-box",
           }}
         >
-          <PublicRouter />
+          <PrivateRouter />
         </Box>
       </MultipleColsWithCustomWidths>): <PublicRouter />}
     </>

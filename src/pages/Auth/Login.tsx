@@ -2,7 +2,7 @@ import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
-import Link from "@mui/material/Link";
+import { Link, To } from "react-router-dom";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
@@ -34,8 +34,11 @@ const Login = () => {
       if (
         userArray &&
         userArray.filter((usr) => usr.email === user.email).length > 0
-        ) {
-        console.log("🚀 ~ file: Login.tsx:36 ~ handleSubmit ~ userArray:", userArray)
+      ) {
+        console.log(
+          "🚀 ~ file: Login.tsx:36 ~ handleSubmit ~ userArray:",
+          userArray
+        );
         // We found our user, so find its index
         const userIndex = userArray.findIndex(
           (usr) => usr.email === user.email
@@ -53,7 +56,7 @@ const Login = () => {
           navigate("/home");
         }
       } else {
-        setError(true)
+        setError(true);
         setErrorMsg("User is not registered");
         console.log("User is not registered");
       }
@@ -114,13 +117,27 @@ const Login = () => {
           </Button>
           <Grid container>
             <Grid item xs>
-              <Link href="#" variant="body2">
-                Forgot password?
+              <Link to="/forgot-password">
+                <Typography
+                  variant="body2"
+                  sx={{
+                    color: "#fff",
+                  }}
+                s>
+                  Forgot password?{" "}
+                </Typography>
               </Link>
             </Grid>
             <Grid item>
-              <Link href="/register" variant="body2">
-                {"Don't have an account? Sign Up"}
+              <Link to="/register">
+                <Typography
+                  variant="body2"
+                  sx={{
+                    color: "#fff",
+                  }}
+                >
+                  Don't have an account? Sign Up
+                </Typography>
               </Link>
             </Grid>
           </Grid>
